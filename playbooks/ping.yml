@@ -1,0 +1,7 @@
+---
+- name: Verifica raggiungibilità degli host
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Esegui ping sugli host
+      ansible.builtin.ping:
