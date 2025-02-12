@@ -1,17 +1,9 @@
 ---
-# Variabili predefinite per il comando docker run
 docker_image: "mariolan/migratekit:latest"
-docker_command: "migrate"
+#docker_command: "migrate"
 docker_privileged: true
 docker_network: "host"
 docker_volumes:
   - "/dev:/dev"
   - "/usr/lib64/vmware-vix-disklib/:/usr/lib64/vmware-vix-disklib:ro"
 docker_env_file: "<(env | grep OS_)"
-availability_zone: "az1"
-vmware_endpoint: "10.100.129.251"
-vmware_username: "virt-v2v@vsphere.local"
-vmware_password: "Aruba123$"
-datacenter: "Aruba"
-folder: "vm/LAB/Mario Lanzolla"
-vm: "OL8"
