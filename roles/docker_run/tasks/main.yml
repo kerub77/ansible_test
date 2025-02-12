@@ -1,5 +1,4 @@
 ---
----
 - name: Configure OpenStack environment and run Docker command
   hosts: all  # Modifica con il gruppo/host specifico se necessario
   gather_facts: false
