@@ -22,7 +22,7 @@
   become: true
 
 - name: Run Docker container with specified options
-  community.docker.docker_container:
+  docker_container:
     name: migratekit-container
     image: "{{ docker_image }}"
     command: "{{ docker_command }}"
