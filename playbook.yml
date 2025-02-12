@@ -1,6 +1,6 @@
 ---
 - name: Execute Docker run command with Ansible
-  hosts: local
+  hosts: all
   gather_facts: false
   roles:
     - role: docker_run
