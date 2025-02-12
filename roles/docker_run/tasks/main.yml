@@ -4,10 +4,6 @@
     for key in $( set | awk -F '=' '/^OS_/ {print $1}' ); do
       unset $key
     done
-  become: true
-
-- name: Set OpenStack environment variables
-  environment:
     OS_PROJECT_DOMAIN_NAME: "{{ openstack_project_domain_name }}"
     OS_USER_DOMAIN_NAME: "{{ openstack_user_domain_name }}"
     OS_PROJECT_NAME: "{{ openstack_project_name }}"
@@ -23,6 +19,7 @@
     OS_PROJECT_ID: "{{ openstack_project_id }}"
     OS_DOMAIN_ID: "{{ openstack_domain_id }}"
     OS_INSECURE: "{{ openstack_insecure }}"
+  become: true
 
 - name: Run Docker container with specified options
   community.docker.docker_container:
