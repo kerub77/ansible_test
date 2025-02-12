@@ -1,52 +1,47 @@
 ---
-- name: Configure OpenStack environment and run Docker command
-  hosts: all  # Modifica con il gruppo/host specifico se necessario
-  gather_facts: false
+- name: Unset existing OS_* variables
+  ansible.builtin.shell: |
+    for key in $( set | awk -F '=' '/^OS_/ {print $1}' ); do
+      unset $key
+    done
+  become: true
 
-  tasks:
-    - name: Unset existing OS_* variables
-      ansible.builtin.shell: |
-        for key in $( set | awk -F '=' '/^OS_/ {print $1}' ); do
-          unset $key
-        done
-      become: true
+- name: Set OpenStack environment variables
+  ansible.builtin.environment:
+    OS_PROJECT_DOMAIN_NAME: "{{ openstack_project_domain_name }}"
+    OS_USER_DOMAIN_NAME: "{{ openstack_user_domain_name }}"
+    OS_PROJECT_NAME: "{{ openstack_project_name }}"
+    OS_TENANT_NAME: "{{ openstack_tenant_name }}"
+    OS_USERNAME: "{{ openstack_username }}"
+    OS_PASSWORD: "{{ openstack_password }}"
+    OS_AUTH_URL: "{{ openstack_auth_url }}"
+    OS_INTERFACE: "{{ openstack_interface }}"
+    OS_ENDPOINT_TYPE: "{{ openstack_endpoint_type }}"
+    OS_IDENTITY_API_VERSION: "{{ openstack_identity_api_version }}"
+    OS_REGION_NAME: "{{ openstack_region_name }}"
+    OS_AUTH_PLUGIN: "{{ openstack_auth_plugin }}"
+    OS_PROJECT_ID: "{{ openstack_project_id }}"
+    OS_DOMAIN_ID: "{{ openstack_domain_id }}"
+    OS_INSECURE: "{{ openstack_insecure }}"
 
-    - name: Set OpenStack environment variables
-      ansible.builtin.environment:
-        OS_PROJECT_DOMAIN_NAME: "{{ openstack_project_domain_name }}"
-        OS_USER_DOMAIN_NAME: "{{ openstack_user_domain_name }}"
-        OS_PROJECT_NAME: "{{ openstack_project_name }}"
-        OS_TENANT_NAME: "{{ openstack_tenant_name }}"
-        OS_USERNAME: "{{ openstack_username }}"
-        OS_PASSWORD: "{{ openstack_password }}"
-        OS_AUTH_URL: "{{ openstack_auth_url }}"
-        OS_INTERFACE: "{{ openstack_interface }}"
-        OS_ENDPOINT_TYPE: "{{ openstack_endpoint_type }}"
-        OS_IDENTITY_API_VERSION: "{{ openstack_identity_api_version }}"
-        OS_REGION_NAME: "{{ openstack_region_name }}"
-        OS_AUTH_PLUGIN: "{{ openstack_auth_plugin }}"
-        OS_PROJECT_ID: "{{ openstack_project_id }}"
-        OS_DOMAIN_ID: "{{ openstack_domain_id }}"
-        OS_INSECURE: "{{ openstack_insecure }}"
-
-    - name: Run Docker container with specified options
-      community.docker.docker_container:
-        name: migratekit-container
-        image: "{{ docker_image }}"
-        command: "{{ docker_command }}"
-        interactive: true
-        tty: true
-        remove: true
-        privileged: "{{ docker_privileged }}"
-        networks:
-          - name: "{{ docker_network }}"
-        volumes: "{{ docker_volumes }}"
-        env_file: "<(env | grep OS_)"
-        env:
-          AVAILABILITY_ZONE: "{{ availability_zone }}"
-          VMWARE_ENDPOINT: "{{ vmware_endpoint }}"
-          VMWARE_USERNAME: "{{ vmware_username }}"
-          VMWARE_PASSWORD: "{{ vmware_password }}"
-          VMWARE_PATH: "{{ vmware_path }}"
-      become: true
+- name: Run Docker container with specified options
+  community.docker.docker_container:
+    name: migratekit-container
+    image: "{{ docker_image }}"
+    command: "{{ docker_command }}"
+    interactive: true
+    tty: true
+    remove: true
+    privileged: "{{ docker_privileged }}"
+    networks:
+      - name: "{{ docker_network }}"
+    volumes: "{{ docker_volumes }}"
+    env_file: "<(env | grep OS_)"
+    env:
+        AVAILABILITY_ZONE: "{{ availability_zone }}"
+        VMWARE_ENDPOINT: "{{ vmware_endpoint }}"
+        VMWARE_USERNAME: "{{ vmware_username }}"
+        VMWARE_PASSWORD: "{{ vmware_password }}"
+        VMWARE_PATH: "{{ vmware_path }}"
+   become: true
 
