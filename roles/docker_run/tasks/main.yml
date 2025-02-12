@@ -1,0 +1,25 @@
+---
+- name: Combine VMware path components
+  set_fact:
+    vmware_path: "/{{ datacenter }}/{{ folder }}/{{ vm }}"
+
+- name: Run Docker container with specified options
+  community.docker.docker_container:
+    name: migratekit-container
+    image: "{{ docker_image }}"
+    command: "{{ docker_command }}"
+    interactive: true
+    tty: true
+    remove: true
+    privileged: "{{ docker_privileged }}"
+    networks:
+      - name: "{{ docker_network }}"
+    volumes: "{{ docker_volumes }}"
+    env_file: "{{ docker_env_file }}"
+    env:
+      AVAILABILITY_ZONE: "{{ availability_zone }}"
+      VMWARE_ENDPOINT: "{{ vmware_endpoint }}"
+      VMWARE_USERNAME: "{{ vmware_username }}"
+      VMWARE_PASSWORD: "{{ vmware_password }}"
+      VMWARE_PATH: "{{ vmware_path }}"
+  become: true
