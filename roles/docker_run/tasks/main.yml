@@ -7,7 +7,7 @@
   become: true
 
 - name: Set OpenStack environment variables
-  ansible.builtin.environment:
+  environment:
     OS_PROJECT_DOMAIN_NAME: "{{ openstack_project_domain_name }}"
     OS_USER_DOMAIN_NAME: "{{ openstack_user_domain_name }}"
     OS_PROJECT_NAME: "{{ openstack_project_name }}"
