@@ -1,5 +1,6 @@
 ---
 - name: Unset existing OS_* variables
+  hosts: all
   ansible.builtin.shell: |
     for key in $( set | awk -F '=' '/^OS_/ {print $1}' ); do
       unset $key
@@ -22,6 +23,7 @@
   become: true
 
 - name: Run Docker container with specified options
+  hosts: all
   docker_container:
     name: migratekit-container
     image: "{{ docker_image }}"
