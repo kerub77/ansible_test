@@ -3,4 +3,4 @@ all:
     conversion-server:
       ansible_host: 192.168.30.28
   vars:
-    ansible_user: ubuntu
+    ansible_user: root
