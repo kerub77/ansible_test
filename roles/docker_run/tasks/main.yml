@@ -1,11 +1,10 @@
 ---
 - name: Run Docker container and capture output
   gather_facts: no
-  become: yes
-  become_user: root
+#  become: yes
+#  become_user: root
   tasks:
     - name: Setting Openstack variables
-      become: yes
       ansible.builtin.shell: |
         for key in $( set | awk -F '=' '/^OS_/ {print $1}' ); do
           unset $key
