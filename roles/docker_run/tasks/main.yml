@@ -22,13 +22,13 @@
   become: true
 
 - name: Run Docker container with specified options
-  docker_container:
+  community.docker.docker_container:
     name: migratekit-container
     image: "{{ docker_image }}"
     command: "{{ docker_command }}"
     interactive: true
     tty: true
-    remove: true
+    auto_remove: true
     privileged: "{{ docker_privileged }}"
     networks:
       - name: "{{ docker_network }}"
