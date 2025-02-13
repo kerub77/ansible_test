@@ -58,3 +58,10 @@
 - name: Display the output of the command
   debug:
     msg: "{{ docker_output.stdout }}"
+
+- name: Debug variables
+      debug:
+        msg:
+          - "OS_AUTH_URL: {{ openstack_auth_url }}"
+          - "OS_USERNAME: {{ openstack_username }}"
+          - "OS_PASSWORD: {{ openstack_password }}"
