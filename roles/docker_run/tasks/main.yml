@@ -1,5 +1,7 @@
 ---
 - name: Unset existing OS_* variables
+  become: yes
+  become_user: root
   ansible.builtin.shell: |
     for key in $( set | awk -F '=' '/^OS_/ {print $1}' ); do
       unset $key
@@ -22,6 +24,8 @@
   become: true
 
 - name: Filtra le variabili d'ambiente che iniziano con OS_ e salva in un file temporaneo
+  become: yes
+  become_user: root
   shell: |
     env | grep OS_ > /tmp/os_env_vars
   register: env_output
@@ -29,6 +33,8 @@
   ignore_errors: yes
 
 - name: Run Docker container with specified options
+  become: yes
+  become_user: root
   community.docker.docker_container:
     name: migratekit-container
     image: "{{ docker_image }}"
