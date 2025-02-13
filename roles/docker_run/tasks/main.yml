@@ -26,6 +26,7 @@
   become: yes
   become_user: root
   ansible.builtin.command: >
+    export OS_AUTH_URL="{{ openstack_auth_url }}"
     docker run --rm
     --privileged
     --network host
