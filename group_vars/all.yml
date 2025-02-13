@@ -16,6 +16,7 @@ openstack_project_id: "3154636851a94ce3a608412a215887df"
 openstack_domain_id: "default"
 openstack_insecure: "true"
 
+vmware_path: "/{{ datacenter }}/{{ folder }}/{{ vm }}"
 
 docker_image: "mariolan/migratekit:latest"
 docker_command: "migrate"
