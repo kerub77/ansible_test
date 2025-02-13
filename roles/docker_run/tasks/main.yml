@@ -32,7 +32,7 @@
   community.docker.docker_container:
     name: migratekit-container
     image: "{{ docker_image }}"
-    command: --help
+    command: "--help"
 #    command: > 
 #      "{{ docker_command }}"
 #      --availability-zone {{ availability_zone }}
@@ -43,9 +43,8 @@
     interactive: true
     tty: true
     auto_remove: false
-    privileged: "{{ docker_privileged }}"
-    networks:
-      - name: "{{ docker_network }}"
+    privileged: true
+    network_mode: host
     volumes: "{{ docker_volumes }}"
     env_file: /tmp/os_env_vars
     state: started

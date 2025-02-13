@@ -20,8 +20,8 @@ vmware_path: "/{{ datacenter }}/{{ folder }}/{{ vm }}"
 
 docker_image: "mariolan/migratekit:latest"
 docker_command: "migrate"
-docker_privileged: true
-docker_network: "host"
+#docker_privileged: true
+#docker_network: "host"
 docker_volumes:
   - "/dev:/dev"
   - "/usr/lib64/vmware-vix-disklib/:/usr/lib64/vmware-vix-disklib:ro"
