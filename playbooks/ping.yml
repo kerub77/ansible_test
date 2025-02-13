@@ -7,3 +7,6 @@
   tasks:
     - name: Esegui ping sugli host
       ansible.builtin.ping:
+    - name: Filtra le variabili d'ambiente che iniziano con OS_ e salva in un file temporaneo
+  shell: |
+      whoami
