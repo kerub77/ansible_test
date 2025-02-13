@@ -26,6 +26,7 @@
     env | grep OS_ > /tmp/os_env_vars
   register: env_output
   changed_when: false
+  ignore_errors: yes
 
 - name: Run Docker container with specified options
   community.docker.docker_container:
