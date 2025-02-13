@@ -31,7 +31,12 @@
     --network host
     -v /dev:/dev:ro
     -v /usr/lib64/vmware-vix-disklib/:/usr/lib64/vmware-vix-disklib:ro
-    "{{ docker_image }}" --help
+    "{{ docker_image }}" migrate
+    --availability-zone "{{ availability_zone }}"
+    --vmware-endpoint "{{ vmware_endpoint }}"
+    --vmware-username "{{ vmware_username }}"
+    --vmware-password "{{ vmware_password }}"
+    --vmware-path "{{ vmware_path }}"
   register: docker_output
 
 - name: Display the output of the command
