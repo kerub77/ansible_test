@@ -25,7 +25,7 @@
 - name: Execute docker run command
   become: yes
   become_user: root
-  ansible.builtin.shell: |
+  ansible.builtin.command: >
     docker run --rm
     --privileged
     --network host
