@@ -32,13 +32,14 @@
   community.docker.docker_container:
     name: migratekit-container
     image: "{{ docker_image }}"
-    command: > 
-      "{{ docker_command }}"
-      --availability-zone {{ availability_zone }}
-      --vmware-endpoint {{ vmware_endpoint }}
-      --vmware-username {{ vmware_username }}
-      --vmware-password {{ vmware_password }}
-      --vmware-path "{{ vmware_path }}"
+    command: --help
+#    command: > 
+#      "{{ docker_command }}"
+#      --availability-zone {{ availability_zone }}
+#      --vmware-endpoint {{ vmware_endpoint }}
+#      --vmware-username {{ vmware_username }}
+#      --vmware-password {{ vmware_password }}
+#      --vmware-path "{{ vmware_path }}"
     interactive: true
     tty: true
     auto_remove: true
@@ -47,11 +48,11 @@
       - name: "{{ docker_network }}"
     volumes: "{{ docker_volumes }}"
     env_file: /tmp/os_env_vars
-    env:
-        AVAILABILITY_ZONE: "{{ availability_zone }}"
-        VMWARE_ENDPOINT: "{{ vmware_endpoint }}"
-        VMWARE_USERNAME: "{{ vmware_username }}"
-        VMWARE_PASSWORD: "{{ vmware_password }}"
-        VMWARE_PATH: "{{ vmware_path }}"
+#    env:
+#        AVAILABILITY_ZONE: "{{ availability_zone }}"
+#        VMWARE_ENDPOINT: "{{ vmware_endpoint }}"
+#        VMWARE_USERNAME: "{{ vmware_username }}"
+#        VMWARE_PASSWORD: "{{ vmware_password }}"
+#        VMWARE_PATH: "{{ vmware_path }}"
   become: true
 
