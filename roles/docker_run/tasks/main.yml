@@ -7,8 +7,8 @@
     - name: Unset existing OS_* variables
       become: yes
       ansible.builtin.shell: |
-        for key in $( set | awk -F '=' '/^OS_/ {print $1}' ); do
-          unset $key
+        for key in $( env | awk -F '=' '/^OS_/ {print $1}' ); do
+          unset "$key"
         done
         export OS_PROJECT_DOMAIN_NAME="{{ openstack_project_domain_name }}"
         export OS_USER_DOMAIN_NAME="{{ openstack_user_domain_name }}"
@@ -26,12 +26,21 @@
         export OS_DOMAIN_ID="{{ openstack_domain_id }}"
         export OS_INSECURE="{{ openstack_insecure }}"
 
-    - name: Filtra le variabili d'ambiente che iniziano con OS_ e salva in un file temporaneo
-      ansible.builtin.shell: |
-        env | grep OS_ > /tmp/os_env_vars
+    - name: Filtra le variabili d'ambiente che iniziano con OS_
+      ansible.builtin.command: env | grep OS_
       register: env_output
       changed_when: false
       ignore_errors: yes
+
+    - name: Check if Docker image is available
+      ansible.builtin.command: docker images --format "{{ .Repository }}:{{ .Tag }}" | grep "{{ docker_image }}"
+      register: docker_image_check
+      failed_when: docker_image_check.rc != 0 and docker_image_check.rc != 1
+      ignore_errors: yes
+
+    - name: Pull Docker image if not available
+      ansible.builtin.command: docker pull "{{ docker_image }}"
+      when: docker_image_check.rc != 0
 
     - name: Execute docker run command
       ansible.builtin.command: >
@@ -42,9 +51,9 @@
         -v /usr/lib64/vmware-vix-disklib/:/usr/lib64/vmware-vix-disklib:ro
         "{{ docker_image }}" --help
       register: docker_output
+      failed_when: docker_output.rc != 0
 
     - name: Display the output of the command
       debug:
-        msg: "{{ docker_output.stdout }}"
-
-
+        msg: "STDOUT: {{ docker_output.stdout }}\nSTDERR: {{ docker_output.stderr }}"
+      failed_when: docker_output.rc != 0
