@@ -32,7 +32,13 @@
   community.docker.docker_container:
     name: migratekit-container
     image: "{{ docker_image }}"
-    command: "{{ docker_command }}"
+    command: > 
+      "{{ docker_command }}"
+      --availability-zone {{ availability_zone }}
+      --vmware-endpoint {{ vmware_endpoint }}
+      --vmware-username {{ vmware_username }}
+      --vmware-password {{ vmware_password }}
+      --vmware-path "{{ vmware_path }}"
     interactive: true
     tty: true
     auto_remove: true
