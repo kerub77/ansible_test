@@ -1,6 +1,5 @@
 ---
 - name: Run Docker container and capture output
-  hosts: all
   gather_facts: no
   become: yes
   tasks:
@@ -30,14 +29,14 @@
     - name: Filtra le variabili d'ambiente che iniziano con OS_ e salva in un file temporaneo
       become: yes
       become_user: root
-      shell: |
+      ansible.builtin.shell: |
         env | grep OS_ > /tmp/os_env_vars
       register: env_output
       changed_when: false
       ignore_errors: yes
 
     - name: Execute docker run command
-      command: >
+      ansible.builtin.command: >
         docker run --rm
         --privileged
         --network host
