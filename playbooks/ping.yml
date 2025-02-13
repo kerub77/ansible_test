@@ -2,6 +2,8 @@
 - name: Verifica raggiungibilità degli host
   hosts: all
   gather_facts: no
+  become: yes  # Esegui tutti i task come root
+  become_user: root  # Specifica esplicitamente l'utente root (opzionale)
   tasks:
     - name: Esegui ping sugli host
       ansible.builtin.ping:
