@@ -1,3 +1,4 @@
+---
 - name: Run Docker container and capture output
   gather_facts: no
   become: yes
