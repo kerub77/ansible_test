@@ -18,7 +18,7 @@ openstack_insecure: "true"
 
 
 docker_image: "mariolan/migratekit:latest"
-#docker_command: "migrate"
+docker_command: "migrate"
 docker_privileged: true
 docker_network: "host"
 docker_volumes:
