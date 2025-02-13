@@ -21,6 +21,12 @@
     export OS_INSECURE="{{ openstack_insecure }}"
   become: true
 
+- name: Filtra le variabili d'ambiente che iniziano con OS_ e salva in un file temporaneo
+  shell: |
+    env | grep OS_ > /tmp/os_env_vars
+  register: env_output
+  changed_when: false
+
 - name: Run Docker container with specified options
   community.docker.docker_container:
     name: migratekit-container
@@ -33,7 +39,7 @@
     networks:
       - name: "{{ docker_network }}"
     volumes: "{{ docker_volumes }}"
-    env_file: "<(env | grep OS_)"
+    env_file: /tmp/os_env_vars
     env:
         AVAILABILITY_ZONE: "{{ availability_zone }}"
         VMWARE_ENDPOINT: "{{ vmware_endpoint }}"
