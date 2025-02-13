@@ -42,12 +42,13 @@
 #      --vmware-path "{{ vmware_path }}"
     interactive: true
     tty: true
-    auto_remove: true
+    auto_remove: flase
     privileged: "{{ docker_privileged }}"
     networks:
       - name: "{{ docker_network }}"
     volumes: "{{ docker_volumes }}"
     env_file: /tmp/os_env_vars
+    state: started
 #    env:
 #        AVAILABILITY_ZONE: "{{ availability_zone }}"
 #        VMWARE_ENDPOINT: "{{ vmware_endpoint }}"
