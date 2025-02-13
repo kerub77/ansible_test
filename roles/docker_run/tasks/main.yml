@@ -42,7 +42,7 @@
 #      --vmware-path "{{ vmware_path }}"
     interactive: true
     tty: true
-    auto_remove: flase
+    auto_remove: false
     privileged: "{{ docker_privileged }}"
     networks:
       - name: "{{ docker_network }}"
