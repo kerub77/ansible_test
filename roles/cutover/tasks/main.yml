@@ -1,7 +1,7 @@
 ---
 - name: Cutover the VM to OpenStack
   vars:
-  network: "your-network-name"
+    network: "your-network-name"
   become: yes
   become_user: root
   ansible.builtin.shell: |
