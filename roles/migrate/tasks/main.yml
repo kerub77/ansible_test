@@ -18,10 +18,11 @@
     env: "{{ openstack_env }}"
     # env_file: "{{ docker_env_file }}"
     detach: false
-    auto_remove: false
-  register: docker_output
+    auto_remove: true
+    output_logs: true
+  register: container_output
 
-- name: Display the output of the command
+- name: Display container output
   debug:
-    msg: "{{ docker_output.stdout }}"
+    msg: "{{ container_output.stdout }}"
 
