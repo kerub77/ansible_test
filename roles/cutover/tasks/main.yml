@@ -1,9 +1,7 @@
 ---
-- name: Debug variables
-  debug:
-    var: network
-    
 - name: Cutover the VM to OpenStack
+  vars:
+  network: "your-network-name"
   become: yes
   become_user: root
   ansible.builtin.shell: |
