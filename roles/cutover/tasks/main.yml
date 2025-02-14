@@ -1,7 +1,5 @@
 ---
 - name: Cutover the VM to OpenStack
-  vars:
-    network: "your-network-name"
   become: yes
   become_user: root
   ansible.builtin.shell: |
@@ -32,7 +30,7 @@
     --vmware-password "{{ vmware_password }}" \
     --vmware-path "{{ vmware_path }}" \
     --flavor "{{ flavor }}" \
-    --network-mapping mac={{ network-id }},subnet-id={{ subnet-id }},ip={{ vm_ip }}
+    --network-mapping mac={{ network_id }},subnet-id={{ subnet_id }},ip={{ vm_ip }}
   register: docker_output
 
 - name: Display the output of the command
