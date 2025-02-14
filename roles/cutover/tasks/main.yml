@@ -30,7 +30,7 @@
     --vmware-password "{{ vmware_password }}" \
     --vmware-path "{{ vmware_path }}" \
     --flavor "{{ flavor }}" \
-    --network-mapping mac="{{ network-id }}",subnet-id="{{ subnet-id }}",ip="{{ vm_ip }}"
+    --network-mapping mac={{ network-id }},subnet-id={{ subnet-id }},ip={{ vm_ip }}
   register: docker_output
 
 - name: Display the output of the command
