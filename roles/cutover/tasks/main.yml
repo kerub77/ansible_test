@@ -1,4 +1,8 @@
 ---
+- name: Debug variables
+  debug:
+    var: network
+    
 - name: Cutover the VM to OpenStack
   become: yes
   become_user: root
