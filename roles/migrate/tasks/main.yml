@@ -19,10 +19,10 @@
     # env_file: "{{ docker_env_file }}"
     detach: false
     auto_remove: true
-    output_logs: true
-  register: container_output
+  register: migration_output
 
-- name: Display container output
+- name: Display Docker container output
   debug:
-    msg: "{{ container_output.stdout }}"
+    var: migration_output.container.Output
+
 
