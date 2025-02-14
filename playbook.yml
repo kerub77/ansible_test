@@ -7,10 +7,10 @@
       ansible.builtin.import_role:
         name: migrate
       tags: migrate
-      when: action == migrate
+      when: "action == 'migrate'"
 
     - name: Cutover
       ansible.builtin.import_role:
         name: cutover
       tags: cutover
-      when: action == cutover
+      when: "action == 'cutover'"
