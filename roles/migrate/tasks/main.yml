@@ -18,7 +18,7 @@
     env: "{{ openstack_env }}"
     # env_file: "{{ docker_env_file }}"
     detach: false
-    auto_remove: true
+    auto_remove: false
   register: migration_output
 
 - name: Display Docker container output
