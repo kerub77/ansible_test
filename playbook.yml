@@ -2,5 +2,15 @@
 - name: Execute Docker run command with Ansible
   hosts: all
   gather_facts: false
-  roles:
-    - role: docker_run
+  tasks:
+    - name: Migrate
+      ansible.builtin.import_role:
+        name: migrate
+      tags: migrate
+      when: action == migrate
+
+    - name: Cutover
+      ansible.builtin.import_role:
+        name: cutover
+      tags: cutover
+      when: action == cutover
