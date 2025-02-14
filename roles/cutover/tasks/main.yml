@@ -13,7 +13,10 @@
       --vmware-password {{ vmware_password }}
       --vmware-path "{{ vmware_path }}"
       --flavor "{{ flavor }}"
-      --network-mapping mac={{ mac_address }},network-id={{ network_id }},subnet-id={{ subnet_id }},ip={{ vm_ip }}
+      {% for net in network_mappings %}
+      --network-mapping mac={{ net.mac }},network-id={{ net.network_id }},subnet-id={{ net.subnet_id }},ip={{ net.ip }}
+      {% endfor %}
+#      --network-mapping mac={{ mac_address }},network-id={{ network_id }},subnet-id={{ subnet_id }},ip={{ vm_ip }}
     network_mode: "{{ docker_network }}"
     privileged: "{{ docker_privileged }}"
     volumes: "{{ docker_volumes }}"
