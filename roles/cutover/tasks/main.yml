@@ -13,12 +13,10 @@
     validate_certs: false
     name: "{{ TENANT }}"
   register: PROJECT_ID
-  when: "action == 'cutover'"
 
 - name: Set OS_PROJECT_ID
   set_fact:
     openstack_env: "{{ openstack_env | combine({'OS_PROJECT_ID': PROJECT_ID.projects[0].id}) }}"
-  when: "action == 'cutover'"
 
 - name: Migration of VM from VMware to OpenStack
   become: yes
