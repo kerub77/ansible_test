@@ -11,7 +11,7 @@
     region_name: "{{ openstack_env.OS_REGION_NAME }}"
     interface: internal
     validate_certs: false
-    name: "{{ TENANT }}"
+    name: "{{ PROJECT_NAME }}"
   register: PROJECT_ID
 
 - name: Set OS_PROJECT_ID
