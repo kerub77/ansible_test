@@ -13,6 +13,7 @@
     validate_certs: false
     name: "{{ TENANT }}"
   register: PROJECT_ID
+  when: "action == 'cutover'"
 
 - name: Set OS_PROJECT_ID
   set_fact:
