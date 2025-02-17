@@ -14,6 +14,10 @@
     name: "{{ TENANT }}"
   register: PROJECT_ID
 
+- name: Set OS_PROJECT_ID
+  set_fact:
+    openstack_env: "{{ openstack_env | combine({'OS_PROJECT_ID': PROJECT_ID.projects[0].id}) }}"
+    
 - name: Migration of VM from VMware to OpenStack
   become: yes
   become_user: root

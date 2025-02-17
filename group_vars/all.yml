@@ -12,7 +12,7 @@ openstack_env:
   OS_IDENTITY_API_VERSION: "3"
   OS_REGION_NAME: "RegionOne"
   OS_AUTH_PLUGIN: "password"
-  OS_PROJECT_ID: "{{ PROJECT_ID.projects[0].id }} "
+  OS_PROJECT_ID: ""
   OS_DOMAIN_ID: "default"
   OS_INSECURE: "true"
 
