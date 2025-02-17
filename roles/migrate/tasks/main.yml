@@ -1,4 +1,27 @@
 ---
+- name: Ottieni ID del project
+  openstack.cloud.project_info:
+    auth:
+      auth_url: "{{ OS_AUTH_URL }}"
+      username: "{{ OS_USERNAME }}"
+      password: "{{ OS_PASSWORD }}"
+      project_name: "{{ OS_PROJECT_NAME }}"
+      user_domain_name: "{{ OS_USER_DOMAIN_NAME }}"
+      project_domain_name: "{{ OS_PROJECT_DOMAIN_NAME }}"
+    region_name: "{{ OS_REGION_NAME }}"
+    interface: internal
+    validate_certs: false
+    name: "{{ TENANT }}"
+  register: PROJECT_ID
+
+- name: Set OS_PROJECT_ID
+  set_fact:
+    openstack_env: "{{ openstack_env | combine({'OS_PROJECT_ID': PROJECT_ID.projects[0].id}) }}"
+
+- name: Debug openstack_env
+  debug:
+    var: openstack_env
+    
 - name: Migration of VM from VMware to OpenStack
   become: yes
   become_user: root

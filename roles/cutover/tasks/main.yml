@@ -22,7 +22,7 @@
   debug:
     var: openstack_env
 
-- name: Migration of VM from VMware to OpenStack
+- name: Cutover of VM from VMware to OpenStack
   become: yes
   become_user: root
   docker_container:
