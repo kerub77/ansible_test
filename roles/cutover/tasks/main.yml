@@ -18,6 +18,10 @@
   set_fact:
     openstack_env: "{{ openstack_env | combine({'OS_PROJECT_ID': PROJECT_ID.projects[0].id}) }}"
 
+- name: Debug openstack_env
+  debug:
+    var: openstack_env
+
 - name: Migration of VM from VMware to OpenStack
   become: yes
   become_user: root
